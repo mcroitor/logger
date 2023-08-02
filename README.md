@@ -14,12 +14,19 @@ class logger {
     public const WARN = 4;  // yellow color
     public const ERROR = 8; // red color
     public const FAIL = 16; // red color
+    public const DEBUG = self::INFO | self::PASS;
     
     /**
      * 
      * @param string $logfile
      */
     public function __construct(string $logfile = "php://stdout");
+
+    /**
+     * enable / disable debug logging
+     * @param bool $enable
+     */
+    public function enableDebug(bool $enable = true);
 
     /**
      * write a message with specific log type marker
@@ -57,6 +64,13 @@ class logger {
      * @param string $data
      */
     public function fail(string $data);
+
+    /**
+     * debug message
+     * @param string $data
+     * @param bool $debug
+     */
+    public function debug(string $data, bool $debug = false);
 
     /**
      * stdout logger builder
