@@ -1,6 +1,22 @@
-# Simpl PHP logger library
+# Simple PHP logger library
 
-Simple PHP logger library. Default output to the STDOUT. 
+Simple PHP logger library. Default output to the STDOUT.
+
+## project usage
+
+You can use my simple [module manager](https://github.com/mcroitor/module_manager),
+just include in `modules.json`:
+
+```json
+[{
+    "user" : "mcroitor",
+    "repository" : "logger",
+    "branch" : "master",
+    "source" : "./src"
+}]
+```
+
+and install it.
 
 ## Interface
 
@@ -77,8 +93,13 @@ class logger {
      * @return \mc\logger
      */
     public static function stdout();
-}
 
+    /**
+     * stderr logger builder
+     * @return \mc\logger
+     */
+    public static function stderr();
+}
 ```
 
 ## Example
