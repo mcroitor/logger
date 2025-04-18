@@ -21,9 +21,10 @@ and install it.
 ## Interface
 
 ```PHP
-namespace mc;
+namespace Mc;
 
-class logger {
+class Logger
+{
 
     public const INFO = 1;  // standard color
     public const PASS = 2;  // green color
@@ -31,81 +32,86 @@ class logger {
     public const ERROR = 8; // red color
     public const FAIL = 16; // red color
     public const DEBUG = self::INFO | self::PASS;
-    
+
     /**
-     * 
-     * @param string $logfile
+     * @param string $logFile
      */
-    public function __construct(string $logfile = "php://stdout");
+    public function __construct(string $logFile = "php://stdout");
+
+    /**
+     * set a output pretifier function
+     * @param callable $pretifier
+     */
+    public function setPretifier(callable $pretifier): void;
 
     /**
      * enable / disable debug logging
      * @param bool $enable
      */
-    public function enableDebug(bool $enable = true);
+    public function enableDebug(bool $enable = true): void;
 
     /**
      * write a message with specific log type marker
      * @param string $data
-     * @param string $log_type
+     * @param string $logType
      */
-    private function write(string $data,string  $log_type);
+    private function write(string $data, string  $logType): void;
 
     /**
      * info message
      * @param string $data
      */
-    public function info(string $data);
+    public function info(string $data): void;
 
     /**
      * warn message
      * @param string $data
      */
-    public function warn(string $data);
+    public function warn(string $data): void;
 
     /**
      * pass message
      * @param string $data
      */
-    public function pass(string $data);
+    public function pass(string $data): void;
 
     /**
      * error message
      * @param string $data
      */
-    public function error(string $data);
+    public function error(string $data): void;
 
     /**
      * fail message
      * @param string $data
      */
-    public function fail(string $data);
+    public function fail(string $data): void;
 
     /**
      * debug message
      * @param string $data
      * @param bool $debug
      */
-    public function debug(string $data, bool $debug = false);
+    public function debug(string $data, bool $debug = false): void;
 
     /**
      * stdout logger builder
-     * @return \mc\logger
+     * @return \Mc\Logger
      */
-    public static function stdout();
+    public static function stdout(): Logger;
 
     /**
      * stderr logger builder
-     * @return \mc\logger
+     * @return \Mc\Logger
      */
-    public static function stderr();
+    public static function stderr(): Logger;
 }
 ```
 
 ## Example
 
 ```PHP
-$logger = \mc\logger::stdout(); // or new \mc\logger()
+$logger = \Mc\Logger::stdout(); // or new \Mc\Logger()
 
 $logger->info("Info message");
 $logger->error("this is a dummy error message");
