@@ -59,19 +59,17 @@ class Logger
     /**
      * write a message with specific log type marker
      * @param string $data
-     * @param string $logType
+     * @param int $logType
      */
-    private function write(string $data, string  $logType): void
+    private function write(string $data, int $logType): void
     {
-        if (isset($_SESSION["timezone"])) {
-            date_default_timezone_set($_SESSION["timezone"]);
-        }
+        $data = \str_replace([PHP_EOL, "\t"], " ", $data);
         $type = self::LOG_TYPE[$logType];
-        $text = date("Y-m-d H:i:s") . "\t{$type}: {$data}" . PHP_EOL;
+        $text = \date("Y-m-d H:i:s") . "\t{$type}: {$data}" . PHP_EOL;
         if ($this->pretifier) {
-            $text = call_user_func($this->pretifier, $text);
+            $text = \call_user_func($this->pretifier, $text);
         }
-        file_put_contents($this->logFile, $text, FILE_APPEND);
+        \file_put_contents($this->logFile, $text, FILE_APPEND);
     }
 
     /**
