@@ -63,7 +63,7 @@ class Logger
      */
     private function write(string $data, int $logType): void
     {
-        $data = \str_replace([PHP_EOL, "\t"], " ", $data);
+        $data = \str_replace(["\r", "\n", "\t"], " ", $data);
         $type = self::LOG_TYPE[$logType];
         $text = \date("Y-m-d H:i:s") . "\t{$type}: {$data}" . PHP_EOL;
         if ($this->pretifier) {
