@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../src/mc/logger.php';
+include_once __DIR__ . '/../src/Mc/Logger.php';
 
 $logger = \Mc\Logger::stdout(); // or new \Mc\Logger()
 

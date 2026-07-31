@@ -17,7 +17,7 @@ class Logger
     public const FAIL = 16; // red color
     public const DEBUG = self::INFO | self::PASS;
 
-    private const LOG_TYPE = [
+    public const LOG_TYPE = [
         self::INFO => "INFO",
         self::DEBUG => "DEBUG",
         self::PASS => "PASS",
@@ -63,11 +63,12 @@ class Logger
      */
     private function write(string $data, int $logType): void
     {
-        $data = \str_replace(["\r", "\n", "\t"], " ", $data);
-        $type = self::LOG_TYPE[$logType];
-        $text = \date("Y-m-d H:i:s") . "\t{$type}: {$data}" . PHP_EOL;
-        if ($this->pretifier) {
-            $text = \call_user_func($this->pretifier, $text);
+        if ($this->pretifier !== null && is_callable($this->pretifier)) {
+            $text = \call_user_func($this->pretifier, $data, $logType);
+        } else {
+            $data = \str_replace(["\r", "\n", "\t"], " ", $data);
+            $type = self::LOG_TYPE[$logType];
+            $text = \date("Y-m-d H:i:s") . "\t{$type}: {$data}" . PHP_EOL;
         }
         \file_put_contents($this->logFile, $text, FILE_APPEND);
     }
